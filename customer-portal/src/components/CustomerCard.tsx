@@ -1,5 +1,3 @@
-// src/components/CustomerCard.tsx
-
 import React from 'react';
 import { Customer } from '../types';
 

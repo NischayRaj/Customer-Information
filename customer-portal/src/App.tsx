@@ -1,11 +1,15 @@
-// src/App.tsx
-
 import React, { useEffect, useState } from 'react';
-// import CustomerList from './components/CustomerList';
-// import CustomerDetails from './components/CustomerDetails';
-import { Customer } from './types';
-import { getCustomers } from './services/customerService.ts';
+import CustomerList from './components/CustomerList';
+import CustomerDetails from './components/CustomerDetails';
+import { getCustomers } from './services/CustomerService';
 import './App.css';
+
+interface Customer {
+  id: number;
+  name: string;
+  title: string;
+  address: string;
+}
 
 const App: React.FC = () => {
   const [customers, setCustomers] = useState<Customer[]>([]);
@@ -13,9 +17,9 @@ const App: React.FC = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const data = await getCustomers();
-      setCustomers(data);
-      setSelectedCustomerId(data[0]?.id || null);
+      const customerData = await getCustomers();
+      setCustomers(customerData);
+      setSelectedCustomerId(customerData[0]?.id || null);
     };
 
     fetchData();
@@ -24,8 +28,17 @@ const App: React.FC = () => {
   const selectedCustomer = customers.find(customer => customer.id === selectedCustomerId);
 
   return (
-    <div className="app" style={{ display: 'flex' }}>
-      
+    <div className="app">
+      <div className="sidebar">
+        <CustomerList
+          customers={customers}
+          selectedCustomerId={selectedCustomerId ?? -1}
+          onSelectCustomer={setSelectedCustomerId}
+        />
+      </div>
+      <div className="content">
+        {selectedCustomer && <CustomerDetails customer={selectedCustomer} />}
+      </div>
     </div>
   );
 };
