@@ -54,19 +54,27 @@ const CustomerDetails: React.FC<CustomerDetailsProps> = ({ customer }) => {
 
   return (
     <div className="customer-details" style={{ padding: '20px' }}>
-      <h2>{customer.name} details here</h2>
+      <h2>{customer.name}</h2>
       <p>{customer.title}</p>
       <p>{customer.address}</p>
       <div className="photo-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '10px' }}>
-        {displayedPhotos.map(photo => (
-          <img
-            key={photo.id}
-            src={photo.url}
-            alt={`Pokémon ${photo.id}`}
-            style={{ width: '300px', height: '300px' }} // Increase size here
-          />
-        ))}
-      </div>
+  {displayedPhotos.map(photo => (
+    <img
+      key={photo.id}
+      src={photo.url}
+      alt={`Pokémon ${photo.id}`}
+      style={{
+        width: '300px',
+        height: '300px',
+        border: '2px solid #ddd',           
+        boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)', 
+        borderRadius: '8px',                
+        objectFit: 'cover',                 
+      }}
+    />
+  ))}
+</div>
+
     </div>
   );
 };

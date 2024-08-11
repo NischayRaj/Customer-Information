@@ -1,4 +1,5 @@
 import React from 'react';
+import '../styles/list.css';
 
 interface Customer {
   id: number;
@@ -17,14 +18,9 @@ const CustomerList: React.FC<CustomerListProps> = ({ customers, selectedCustomer
     <div>
       {customers.map((customer) => (
         <div
+          className={`customer-card ${customer.id === selectedCustomerId ? 'selected' : ''}`}
           key={customer.id}
           onClick={() => onSelectCustomer(customer.id)}
-          style={{
-            padding: '15px',
-            cursor: 'pointer',
-            backgroundColor: customer.id === selectedCustomerId ? '#f0f0f0' : 'white',
-            borderBottom: '1px solid #ddd',
-          }}
         >
           <h3>{customer.name}</h3>
           <p>{customer.title}</p>
